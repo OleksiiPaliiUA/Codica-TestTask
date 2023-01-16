@@ -1,0 +1,952 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/banks": {
+      "post": {
+        "operationId": "BankController_create",
+        "summary": "[CreateBank]",
+        "description": "Create new bank",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BankCreateDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BankResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "Already exist",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Banks"]
+      },
+      "get": {
+        "operationId": "BankController_findAll",
+        "summary": "[GetAllBanks]",
+        "description": "Get all banks",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Array of banks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/BankResponse" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Banks"]
+      },
+      "patch": {
+        "operationId": "BankController_update",
+        "summary": "[UpdateBank]",
+        "description": "Update bank",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BankUpdateDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BankResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "One of the arguments are of the wrong type",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "Already exist",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Banks"]
+      }
+    },
+    "/banks/{id}": {
+      "delete": {
+        "operationId": "BankController_destoy",
+        "summary": "[DeleteBank]",
+        "description": "Delete bank",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "example": "aef9fdbc-b4b6-4beb-9326-9b4f1773b0ba",
+            "description": "Bank's id",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Id is not a UUID",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "Bank is not empty",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Banks"]
+      },
+      "get": {
+        "operationId": "BankController_find",
+        "summary": "[GetBank]",
+        "description": "Get bank",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "example": "aef9fdbc-b4b6-4beb-9326-9b4f1773b0ba",
+            "description": "Bank's id",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/FindBankResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Id is not a UUID",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Banks"]
+      }
+    },
+    "/transactions": {
+      "post": {
+        "operationId": "TransactionController_create",
+        "summary": "[CreateTransaction]",
+        "description": "Create transaction",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/TransactionCreateDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TransactionResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "One of the arguments are of the wrong type",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Wrong bankId",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Transactions"]
+      },
+      "get": {
+        "operationId": "TransactionController_findAll",
+        "summary": "[GetAllTransactions]",
+        "description": "Get all transactions",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number. Default: 0",
+            "example": 0,
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "onPageLimit",
+            "required": false,
+            "in": "query",
+            "description": "Limit rows on one page. Default: 10",
+            "example": 10,
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllTransactionsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "One of the arguments are of the wrong types",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Transactions"]
+      }
+    },
+    "/transactions/{id}": {
+      "delete": {
+        "operationId": "TransactionController_destroy",
+        "summary": "[DeleteTransaction]",
+        "description": "Delete transaction",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "example": "aef9fdbc-b4b6-4beb-9326-9b4f1773b0ba",
+            "description": "Transaction id",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Id is not a UUID",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Transactions"]
+      }
+    },
+    "/categories": {
+      "post": {
+        "operationId": "CategoryController_create",
+        "summary": "[CreateCategory]",
+        "description": "Create new category",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CategoryCreateDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CategoryResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "Already exist",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Categories"]
+      },
+      "get": {
+        "operationId": "CategoryController_findAll",
+        "summary": "[GetAllCategories]",
+        "description": "Get all categories",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Array of categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/CategoryResponse" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Categories"]
+      },
+      "patch": {
+        "operationId": "CategoryController_update",
+        "summary": "[UpdateCategory]",
+        "description": "Update category",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CategoryUpdateDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CategoryResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "One of the arguments are of the wrong type",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "Already exist",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Categories"]
+      }
+    },
+    "/categories/{id}": {
+      "delete": {
+        "operationId": "CategoryController_destoy",
+        "summary": "[DeleteCategory]",
+        "description": "Delete category",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "example": "aef9fdbc-b4b6-4beb-9326-9b4f1773b0ba",
+            "description": "Category's id",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Id is not a UUID",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "Category is not empty",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Categories"]
+      },
+      "get": {
+        "operationId": "CategoryController_find",
+        "summary": "[GetCategory]",
+        "description": "Get category",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "example": "aef9fdbc-b4b6-4beb-9326-9b4f1773b0ba",
+            "description": "Category's id",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CategoryResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Id is not a UUID",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Categories"]
+      }
+    },
+    "/categories/statistics": {
+      "post": {
+        "operationId": "CategoryController_getStats",
+        "summary": "[GetStatistics]",
+        "description": "Get transactions statistics",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/GetStatsDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully",
+            "content": {
+              "application/json": {
+                "schema": { "example": { "Food": "-2000", "Salary": "+10000" } }
+              }
+            }
+          },
+          "400": {
+            "description": "One of the armugents are of the wrong type",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Categories"]
+      }
+    },
+    "/webhooks/updateBalance/{id}": {
+      "post": {
+        "operationId": "WebhooksController_updateBalance",
+        "summary": "[UpdateBankBalance]",
+        "description": "Webhook for updating bank balance when new transaction created",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "example": "aef9fdbc-b4b6-4beb-9326-9b4f1773b0ba",
+            "description": "Bank id",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Id is not a uuid",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CoreResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Webhooks"],
+        "security": [{ "X-API-KEY": [] }]
+      }
+    }
+  },
+  "info": {
+    "title": "Codica - API",
+    "description": "Codica api",
+    "version": "0.0.1",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "X-API-KEY": { "type": "apiKey", "in": "header", "name": "X-API-KEY" }
+    },
+    "schemas": {
+      "BankCreateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Bank name",
+            "example": "MonoBank"
+          }
+        },
+        "required": ["name"]
+      },
+      "BankResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Bank id",
+            "example": "0d89a63b-3b8a-4722-8442-9f651242fd88"
+          },
+          "name": {
+            "type": "string",
+            "description": "Bank name",
+            "example": "MonoBanks"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created at",
+            "example": "2023-01-13 14:47:20.374+02"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Updated at",
+            "example": "2022-01-13 14:47:20.374+02"
+          },
+          "balance": {
+            "type": "number",
+            "description": "Bank balance",
+            "example": 120
+          }
+        },
+        "required": ["id", "name", "createdAt", "updatedAt", "balance"]
+      },
+      "CoreResponse": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "number", "example": 200 },
+          "message": { "type": "string", "example": "Message" },
+          "data": { "type": "object", "example": null },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string",
+            "example": 1673606281881
+          }
+        },
+        "required": ["code", "message", "data", "timestamp"]
+      },
+      "TransactionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Transaction id",
+            "example": "0d89a63b-3b8a-4722-8442-9f651242fd88"
+          },
+          "bankId": {
+            "type": "string",
+            "description": "Bank id",
+            "example": "0d89a63b-3b8a-4722-8442-9f651242fd88"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount of money",
+            "example": 500
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of transaction",
+            "enum": ["profitable", "consumable"]
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Updated at",
+            "example": "2023-01-13 14:47:20.374+02"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created at",
+            "example": "2023-01-13 14:47:20.374+02"
+          }
+        },
+        "required": ["id", "bankId", "amount", "type", "updatedAt", "createdAt"]
+      },
+      "FindBankResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Bank id",
+            "example": "0d89a63b-3b8a-4722-8442-9f651242fd88"
+          },
+          "name": {
+            "type": "string",
+            "description": "Bank name",
+            "example": "MonoBanks"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created at",
+            "example": "2023-01-13 14:47:20.374+02"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Updated at",
+            "example": "2022-01-13 14:47:20.374+02"
+          },
+          "balance": {
+            "type": "number",
+            "description": "Bank balance",
+            "example": 120
+          },
+          "transactions": {
+            "description": "Array of transactions",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TransactionResponse" }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdAt",
+          "updatedAt",
+          "balance",
+          "transactions"
+        ]
+      },
+      "BankUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Bank id",
+            "example": "aef9fdbc-b4b6-4beb-9326-9b4f1773b0ba"
+          },
+          "name": {
+            "type": "string",
+            "description": "Bank name",
+            "example": "Privat"
+          }
+        },
+        "required": ["id"]
+      },
+      "TransactionCreateDto": {
+        "type": "object",
+        "properties": {
+          "bankId": {
+            "type": "string",
+            "description": "Bank id",
+            "example": "aef9fdbc-b4b6-4beb-9326-9b4f1773b0ba"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount",
+            "example": 700
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of transaction",
+            "enum": ["profitable", "consumable"]
+          },
+          "categories": {
+            "description": "Array of categories ids",
+            "example": ["aef9fdbc-b4b6-4beb-9326-9b4f1773b0ba"],
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["bankId", "amount", "type", "categories"]
+      },
+      "MetaResponse": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number",
+            "description": "Page number. Default: 0",
+            "example": 0
+          },
+          "onPageLimit": {
+            "type": "number",
+            "description": "Limit rows on one page. Default: 10",
+            "example": 10
+          },
+          "totalCount": {
+            "type": "number",
+            "description": "Total count of all rows",
+            "example": 15
+          },
+          "onPageCount": {
+            "type": "number",
+            "description": "Total count oon this page",
+            "example": 15
+          },
+          "offset": {
+            "type": "number",
+            "description": "Amount of sliced rows",
+            "example": 10
+          }
+        },
+        "required": ["totalCount", "onPageCount", "offset"]
+      },
+      "AllTransactionsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "Array of transactions",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TransactionResponse" }
+          },
+          "meta": {
+            "description": "Meta info",
+            "allOf": [{ "$ref": "#/components/schemas/MetaResponse" }]
+          }
+        },
+        "required": ["data", "meta"]
+      },
+      "CategoryCreateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Category name",
+            "example": "Food"
+          }
+        },
+        "required": ["name"]
+      },
+      "CategoryResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Category id",
+            "example": "0d89a63b-3b8a-4722-8442-9f651242fd88"
+          },
+          "name": {
+            "type": "string",
+            "description": "Category name",
+            "example": "Food"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Created at",
+            "example": "2023-01-13 14:47:20.374+02"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Updated at",
+            "example": "2022-01-13 14:47:20.374+02"
+          }
+        },
+        "required": ["id", "name", "createdAt", "updatedAt"]
+      },
+      "CategoryUpdateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Category name",
+            "example": "Food"
+          },
+          "id": {
+            "type": "string",
+            "description": "Category id",
+            "example": "aef9fdbc-b4b6-4beb-9326-9b4f1773b0ba"
+          }
+        },
+        "required": ["name", "id"]
+      },
+      "GetStatsDto": {
+        "type": "object",
+        "properties": {
+          "categoryIds": {
+            "description": "Array of categories ids",
+            "example": ["aef9fdbc-b4b6-4beb-9326-9b4f1773b0ba"],
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "fromPeriod": {
+            "format": "date-time",
+            "type": "string",
+            "description": "From period",
+            "example": "2023-01-14"
+          },
+          "toPeriod": {
+            "format": "date-time",
+            "type": "string",
+            "description": "To period",
+            "example": "2023-01-15"
+          }
+        },
+        "required": ["categoryIds", "fromPeriod", "toPeriod"]
+      }
+    }
+  }
+}
